@@ -19,18 +19,18 @@ main()
 main()
 {
     btt('加载中。。。',0, 0,,OwnzztooltipStyle1,{Transparent:180,DistanceBetweenMouseXAndToolTip:-100,DistanceBetweenMouseYAndToolTip:-20})
-    global g_all_api := ['baidu', 'youdao', 'sougou', 'deepl']
+    global g_all_api := ['baidu', 'youdao', 'deepl']
     global g_eb := Edit_box(0, 0, 1000, 100)
     global g_is_ime_char := false
     global g_cursor_x := 0
     global g_cursor_y := 0
-    global g_current_api := 'sougou'
+    global g_current_api := 'baidu'
     global g_window_hwnd := 0
 
     g_eb.hide()
 
     Hotkey('!y', (key) => fanyi()) ;打开翻译器
-    Hotkey('^!y', (key) => fanyi_clipboard()) ;翻译粘贴板文本
+    Hotkey('^!t', (key) => fanyi_clipboard()) ;翻译粘贴板文本
     Hotkey('~Esc', (key) => g_eb.hide()) ;退出
     Hotkey('^f7', (key) => g_eb.debug()) ;调试
 	HotIfWinActive("ahk_id " g_eb.ui.hwnd)
@@ -40,6 +40,7 @@ main()
         Hotkey("~tab", tab_send) ;切换API
         Hotkey("^v", paste) ;粘贴
         Hotkey("^c", copy) ;复制
+        ; 这里留一个待实现Hotkey("LButton", copy)
         Hotkey("^!enter", serpentine_naming) ;驼峰命名
     HotIf()
 
@@ -52,6 +53,10 @@ main()
         ALT ENTER : 发音
         CTRL F7 : 展示当前API网页原始内容
         ESC : 退出
+        PLUS:
+        CTRL + ALT + T 翻译粘贴板文本
+        CTRL + C :复制结果
+        CTRL + V:打开状态下，输入粘贴板内容
     )'
     btt(help_text,0, 0,,OwnzztooltipStyle1,{Transparent:180,DistanceBetweenMouseXAndToolTip:-100,DistanceBetweenMouseYAndToolTip:-20})
 }
@@ -262,19 +267,20 @@ class Edit_box
             {
                 case 'baidu':
                 {
-                    this.bd.show(,, 1000, 700)
+                    ;这里调整了一下横屏的大小
+                    this.bd.show(,, 2000, 550)
                 }
                 case 'sougou':
                 {
-                    this.sg.show(,, 1000, 700)
+                    this.sg.show(,, 2000, 550)
                 }
                 case 'youdao':
                 {
-                    this.yd.show(,, 1000, 700)
+                    this.yd.show(,, 2000, 550)
                 }
                 case 'deepl':
                 {
-                    this.dp.show(,, 1000, 700)
+                    this.dp.show(,, 2000, 550)
                 }
             }
         }
@@ -315,14 +321,14 @@ class Edit_box
         ui.gui.GetPos(&x, &y, &w, &h)
         logger.info(x, y, w, h)
         ;计算文字的大小
-        wh := this.ui.GetTextWidthHeight(this.text, 20)
+        wh := this.ui.GetTextWidthHeight(this.text, 40)
         logger.info(wh)
-        this.move(x, y, wh.width + 100, wh.height + 100)
+        this.move(x, y, wh.width + 150, wh.height + 150)
         if(ui.BeginDraw())
         {
             ui.FillRoundedRectangle(0, 0, wh.width, wh.height, 5, 5, 0xcc1E1E1E)
             ui.DrawRoundedRectangle(0, 0, wh.width, wh.height, 5, 5, 0xffff0000, 1)
-            ui.DrawText(this.text, 0, 0, 20, 0xFFC9E47E)
+            ui.DrawText(this.text, 0, 0, 30, 0xFFC9E47E)
             logger.info(this.text)
             ui.EndDraw()
         }

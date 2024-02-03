@@ -1,6 +1,6 @@
 ﻿{
-    "cd" : "sougou",
-    "all_api" : ["baidu", "youdao", "sougou", "google"],
+    "cd" : "youdao",
+    "all_api" : ["baidu", "youdao", "google"],
     "youdao":
     {
         "is_open" : 1
@@ -23,3 +23,5 @@
         "is_real_time_translate" : 0
     }
 }
+
+			
