@@ -2,7 +2,7 @@
 
 # 实时翻译、查询单词软件
 
-### 基于原项目：[:地址](https://github.com/sxzxs/Real-time-translation-typing)
+##### [基于原项目](https://github.com/sxzxs/Real-time-translation-typing)
 ##### 新增 Auto copy插件（神来之笔）更好用
   -  双击鼠标右键：复制
 
